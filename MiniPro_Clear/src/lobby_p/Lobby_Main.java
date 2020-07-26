@@ -42,7 +42,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 	public ClientNetWork cn;
 	DDongData dData;
 
-	JTextArea chatArea; // 대화 내용들이 입력되는 창
+	JTextArea textArea; // 대화 내용들이 입력되는 창
 	JTextField wrArea; // 메세지 입력창   
 	JScrollPane js;
 	JPanel roomList;
@@ -62,11 +62,11 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 
 		public UserList_Main() {
 
-			setBounds(0,0, 636,902);
+			setBounds(0,0, 210,600);
 			setLayout(null);
 
 			JLabel lobbyList = new JLabel("로비");
-			lobbyList.setBounds(0, 0, 261, 50);
+			lobbyList.setBounds(0, 0, 210, 50);
 			lobbyList.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
 			add(lobbyList);
 		}
@@ -74,7 +74,6 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 		void init(){
 
 			if(sp2!=null) {
-
 
 				lobbyT.removeAll();
 				sp2.removeAll();
@@ -97,7 +96,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 			lobbyT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
 			sp2 = new JScrollPane(lobbyT);
 			sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			sp2.setBounds(0, 50, 261, 550);
+			sp2.setBounds(0, 50, 210, 350);
 			add(sp2);
 
 		}
@@ -110,26 +109,30 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 		this.cn = cn;
 		cn.ddInter = this;
 
-		setBounds(300, 50, 1130, 950);
+		setBounds(300, 50, 900, 650);
 		setTitle("젤리젤리"); // 타이틀
 		setIconImage(new ImageIcon("./img/logo.png").getImage());
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		userList = new UserList_Main();
-		userList.setBounds(830, 30, 261, 600);
-		userList.setBackground(Color.CYAN);
 
+		
 		// == 화면 윗부분 =====================
+
+		// -- 접속유저 리스트 -------
+		userList = new UserList_Main();
+		userList.setBounds(662, 20, 210, 400);
+//		userList.setBackground(Color.CYAN);
+		// -- 접속유저 리스트 끝 -------
 
 		// -- 방 리스트 -------
 		roomBtn();
 		//       -- 방 리스트 끝 -------
 
-
 		// -- 접속유저 리스트 -------
 		contentPane.add(userList);
 		// -- 접속유저 리스트 끝 -------
+
 
 		// == 화면 윗부분 끝 =====================
 
@@ -139,7 +142,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 
 		// -- 채팅창 -------
 		JPanel chatArea = new ChatUser();
-		chatArea.setBounds(30, 640, 782, 228);
+		chatArea.setBounds(25, 430, 618, 175);
 		chatArea.setBackground(Color.MAGENTA);
 		contentPane.add(chatArea);
 		// -- 채팅창 끝 -------
@@ -148,7 +151,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 		// -- 랭킹 버튼 -------
 		JButton rankBtn = new JButton("랭킹");
 		rankBtn.setFont(new Font("휴먼둥근헤드라인", Font.BOLD, 16));
-		rankBtn.setBounds(830, 640, 261, 130);
+		rankBtn.setBounds(662, 430, 210, 100);
 		rankBtn.setBackground(Color.PINK);
 		contentPane.add(rankBtn);
 
@@ -158,7 +161,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 		// -- 나가기 버튼 -------
 		JButton exitBtn = new JButton("게임종료");
 		exitBtn.setFont(new Font("휴먼둥근헤드라인", Font.BOLD, 16));
-		exitBtn.setBounds(830, 778, 261, 90);
+		exitBtn.setBounds(662, 537, 210, 67);
 		exitBtn.setBackground(Color.lightGray);
 		contentPane.add(exitBtn);
 
@@ -195,18 +198,22 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 
 
 	void roomBtn() { // 방버튼
-		userList.init();
+		
+		
 		if(js!=null) {
+			
 			roomList.removeAll();
 			js.removeAll();
 			contentPane.remove(js);
 		}
 
+		userList.init();
+
 		roomList = new JPanel();
-		roomList.setPreferredSize(new Dimension(750, 1200));
+		roomList.setPreferredSize(new Dimension(582, 600));
 		//      roomList.setBounds(30,30,770,1200);
 		js = new JScrollPane(roomList);
-		js.setBounds(30, 30, 780, 600);
+		js.setBounds(25, 20, 618, 400);
 		roomList.setLayout(null);
 		//      js.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		//      js.setLayout(null);
@@ -221,20 +228,20 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 
 			if(i%3==1) {
 
-				btnY += 200*(i/3);
+				btnY += 100*(i/3);
 			}else if(i%3==2) {
-				btnX = 260;
-				btnY += 200*(i/3);
+				btnX = 206;
+				btnY += 100*(i/3);
 			}else if(i%3==0) {
-				btnX = 520;
-				btnY += 200*(i/3-1);
+				btnX = 412;
+				btnY += 100*(i/3-1);
 			}
 
 			JButton roombtn = new JButton();
-			roombtn.setBounds(btnX, btnY, 260, 200);
+			roombtn.setBounds(btnX, btnY, 206, 100);
 			roombtn.setBackground(Color.yellow);
 			JLabel btnName = new JLabel();
-			btnName.setFont(new Font("맑은고딕",Font.BOLD, 15));
+			btnName.setFont(new Font("맑은고딕",Font.BOLD, 14));
 			ttt = "<html>NO. " + roomN + " (0 / 2)<br> >>방만들기 << </html>";
 			btnName.setText(ttt);
 			roombtn.add(btnName);
@@ -246,20 +253,20 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 					new GameRoomDAO().detailroom(roomN).getUser2()==null) {
 
 				roombtn.setBackground(Color.cyan);
-				ttt = "<html>NO. " + roomN + "  (1 / 2)<br> >> 입장하기 << </html>";
+				ttt = "<html>NO. " + roomN + "  (1 / 2)<br> >> 입장하기</html>";
 				btnName.setText(ttt);
 
 			} else if(new GameRoomDAO().detailroom(roomN).getUser1()!=null &&
 					new GameRoomDAO().detailroom(roomN).getUser2()!=null) {
 
 				roombtn.setBackground(Color.MAGENTA);
-				ttt = "<html>NO. " + roomN + " (2 / 2)<br>-- 인원이 가득 차 있습니다 --</html>";
+				ttt = "<html>NO. " + roomN + " (2 / 2)<br>- 인원이<br>  가득 차 있습니다 -</html>";
 				btnName.setText(ttt);
 			} else if(new GameRoomDAO().detailroom(roomN).getUser1()==null &&
 					new GameRoomDAO().detailroom(roomN).getUser2()!=null) {
 
 				roombtn.setBackground(Color.cyan);
-				ttt = "<html>NO. " + roomN + "  (1 / 2)<br> >> 입장하기 << </html>";
+				ttt = "<html>NO. " + roomN + "  (1 / 2)<br> >> 입장하기</html>";
 				btnName.setText(ttt);
 			} 
 
@@ -278,7 +285,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 							new GameRoomDAO().detailroom(roomN).getUser2()==null) {
 
 						roombtn.setBackground(Color.cyan);
-						ttt = "<html>NO. " + roomN + " (1 / 2)<br> >> 입장하기 << </html>";
+						ttt = "<html>NO. " + roomN + " (1 / 2)<br> >> 입장하기 </html>";
 						btnName.setText(ttt);
 
 
@@ -306,7 +313,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 							new GameRoomDAO().detailroom(roomN).getUser2()==null) {
 
 						roombtn.setBackground(Color.MAGENTA);
-						ttt = "<html>NO. " + roomN + "(2 / 2)<br>-- 인원이 가득 차 있습니다 --</html>";
+						ttt = "<html>NO. " + roomN + "(2 / 2)<br>- 인원이<br>  가득 차 있습니다 -</html>";
 						btnName.setText(ttt);
 
 						System.out.println(roomN+"여긴 유저가 1명 있는곳을 눌렀을때");
@@ -331,7 +338,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 							new GameRoomDAO().detailroom(roomN).getUser2()!=null) {
 
 						roombtn.setBackground(Color.cyan);
-						ttt = "<html>NO. " + roomN + " (1 / 2)<br> >> 입장하기 << </html>";
+						ttt = "<html>NO. " + roomN + " (1 / 2)<br> >> 입장하기</html>";
 						btnName.setText(ttt);
 
 
@@ -385,7 +392,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 			rankPop.setBounds(500, 75, 536, 700);
 			rankPop.setTitle("랭킹");
 			rankPop.setIconImage(new ImageIcon("./img/logo.png").getImage());
-			rankPop.add(new RankMain_GUI());
+			rankPop.getContentPane().add(new RankMain_GUI());
 			rankPop.setVisible(true);
 		}
 	}
@@ -397,23 +404,24 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 
 			try {
 
-				setBounds(0, 0, 782, 228);
+				setBounds(0, 0, 600, 100);
 				setLayout(null);
 
 				// chatArea - 대화창
-				chatArea = new JTextArea(); // 대화창
-				chatArea.setEnabled(false); // 대화가 입력되는 공간이므로 텍스트를 입력하지 못하게 막는다
-				JScrollPane js = new JScrollPane(chatArea);
-				js.setBounds(0, 0, 782, 188);
-				chatArea.setBackground(new Color(250, 250, 250));
-				chatArea.setFont(new Font("나눔바른고딕", Font.BOLD, 16));
-				chatArea.setForeground(Color.black);
+				textArea = new JTextArea(); // 대화창
+				textArea.setEnabled(false); // 대화가 입력되는 공간이므로 텍스트를 입력하지 못하게 막는다
+				JScrollPane js = new JScrollPane(textArea);
+				js.setBounds(0, 0, 618, 135);
+				textArea.setBackground(new Color(250, 250, 250));
+				textArea.setFont(new Font("나눔바른고딕", Font.BOLD, 15));
+				textArea.setForeground(Color.black);
 				add(js);
 				// == 대화창 swing ==============
 
 				// wrArea - 메세지 입력창
 				wrArea = new JTextField();
-				wrArea.setBounds(0, 188, 782, 40);
+				wrArea.setBounds(0, 135, 618, 40);
+//				wrArea.setBackground(Color.magenta);
 				wrArea.setFont(new Font("나눔바른고딕", Font.BOLD, 16));
 				add(wrArea);
 				// == 메세지 입력창 swing ==============
@@ -432,7 +440,6 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 
 							wrArea.setText(""); // 메세지를 입력후 메세지 창을 비워준다
 							wrArea.setFocusable(true); // 커서도 맨앞으로 보내준다
-							System.out.println("채팅 리셋");
 
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
@@ -457,9 +464,9 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 		if(dd.type.equals("채팅")) {
 
 			System.out.println(dd.data.toString()+" - 롸이트해주는곳인데 데이터타입뭐니");
-			chatArea.append(" ["+dd.src+"]  "+dd.data+"\n"); // 여기서 에러나는디
+			textArea.append(" ["+dd.src+"]  "+dd.data+"\n"); // 여기서 에러나는디
 			// 읽어 온 내용을 대화창에 입력해주고 줄바꿈을 해준다
-			chatArea.setCaretPosition(chatArea.getDocument().getLength());
+			textArea.setCaretPosition(textArea.getDocument().getLength());
 			// 스크롤을 맨 마지막 대화쪽에 위치해준다
 
 		} else if(dd.type.equals("로비")||dd.type.equals("게임")) {

@@ -26,7 +26,7 @@ import jdbc_p.LobbyDTO;
 import lobby_p.Lobby_Main;
 
 public class LoginTest extends JFrame implements DDongInter {
-	
+   
    boolean login_chk = false;
    GameUserDTO dto = new GameUserDTO();
    GameUserDAO dao = new GameUserDAO();
@@ -34,7 +34,6 @@ public class LoginTest extends JFrame implements DDongInter {
    Container contentPane;
    JTextField idText;
    JPasswordField pwText;
-
    ArrayList<String> idstr;
 
    DDongData ddos;
@@ -125,21 +124,18 @@ public class LoginTest extends JFrame implements DDongInter {
             try {
 
                if (dao.Login(idText.getText(), pwText.getText())) {
-                  System.out.println(idText.getText());
                   JOptionPane.showMessageDialog(null, "로그인 성공");
 
                   new LobbyDAO().insert(idText.getText());
 
-                  System.out.println("cn생성전");
 
                   cn = new ClientNetWork(idText.getText());
-                  System.out.println("cn생성 후 ");
                   Lobby_Main mm = new Lobby_Main(cn);
                   
                   
-                  System.out.println(idText.getText());
                   System.out.print("접속성공");
                   dispose();
+                  
                } else if (dao.Login(idText.getText(), pwText.getText()) == false) {
 
                   JOptionPane.showMessageDialog(null, "아이디와 비밀번호 확인해주세요");
@@ -174,19 +170,11 @@ public class LoginTest extends JFrame implements DDongInter {
 
    }
 
-   @Override
-   public void reciver(DDongData dd) {
+@Override
+public void reciver(DDongData dd) {
+   // TODO Auto-generated method stub
+   
+}
 
-      if (dd.type.equals("login")) {
-
-         System.out.println("로그인 리시버");
-
-         dd.type = "로비";
-
-         //cn.send(dd);
-
-      }
-
-   }
 
 }

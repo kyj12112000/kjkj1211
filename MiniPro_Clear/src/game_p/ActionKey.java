@@ -13,7 +13,7 @@ public class ActionKey implements KeyListener {
 	int meY;
 
 	int youX;
-	int youY;
+	int youY; 
 
 	public ActionKey(MePuyoPanel panel) { // 생성시 메인 프레임을 가져옴
 		// TODO Auto-generated constructor stub
@@ -29,12 +29,9 @@ public class ActionKey implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) { // 키 이벤트
 		// TODO Auto-generated method stub
-		System.out.println("keyPressed 진입");
 
-		if (panel.me.stopChk || panel.you.stopChk) { // 뿌요가 하나라도 스탑되면 키를 사용하지 못함
-			System.out.println("뿌요가 정지 되어 키보드 사용 불가");
+		if (panel.me.stopChk || panel.you.stopChk) // 뿌요가 하나라도 스탑되면 키를 사용하지 못함
 			return;
-		}
 
 		meX = panel.meLb.getX(); // 프레임을 통해 x값과 y값을 설정
 		meY = panel.meLb.getY();
@@ -48,7 +45,7 @@ public class ActionKey implements KeyListener {
 
 		case KeyEvent.VK_LEFT:
 
-			System.out.println("왼쪽");
+			// System.out.println("왼쪽");
 
 			if (meX == 0 || youX == 0)
 				return;
@@ -60,12 +57,12 @@ public class ActionKey implements KeyListener {
 				meX = panel.meLb.getX();
 				youX = panel.youLb.getX();
 			}
-			printNode();
+			// printNode();
 			break;
 
 		case KeyEvent.VK_RIGHT:
 
-			System.out.println("오른쪽");
+			// System.out.println("오른쪽");
 
 			if (meX + Puyo.PUYOSIZE == panel.getSize().width || youX + Puyo.PUYOSIZE == panel.getSize().width)
 				return;
@@ -75,7 +72,7 @@ public class ActionKey implements KeyListener {
 				meX = panel.meLb.getX();
 				youX = panel.youLb.getX();
 			}
-			printNode();
+			// printNode();
 			break;
 
 		case KeyEvent.VK_UP:
@@ -98,7 +95,7 @@ public class ActionKey implements KeyListener {
 
 			meY += speed;
 			youY += speed;
-			printNode();
+			// printNode();
 			break;
 		}
 
@@ -108,8 +105,8 @@ public class ActionKey implements KeyListener {
 
 		// 세로방향일땐 누가 누군지 상관없음
 
-		panel.youLb.setLocation(youX, youY);
 		panel.meLb.setLocation(meX, meY);
+		panel.youLb.setLocation(youX, youY);
 
 	}
 
@@ -182,8 +179,6 @@ public class ActionKey implements KeyListener {
 		// 가로상태 일때 너무 밑에서 방향키로 회전 시키면 이상하게 쌓이는 현상 해결
 
 		if (youX == meX) { // me 와 you가 y툭으로 일직선 즉 세로 방향 일때
-			// System.out.println("youX : " + youX); // 통과
-			// System.out.println("meX : " + meX); // 통과
 
 			if (youY < meY) { // you가 me 보다 위에 존재 할때
 				// you의 x 가 me의 오른쪽으로...
@@ -228,7 +223,6 @@ public class ActionKey implements KeyListener {
 	}
 
 	boolean searchRight() { // (세로방향의 뿌요) 오른쪽으로 회전시 => 즉 you가 me의 위에 있을때
-		System.out.println("searchRight 진입");
 
 		// 오른쪽에 벽 또는 다른 뿌요가 있다면...
 		// me 를 기준으로 you 가 회전함 you의 좌표만이 고려대상
@@ -246,13 +240,11 @@ public class ActionKey implements KeyListener {
 		if (youX + Puyo.PUYOSIZE == panel.getSize().width)
 			result = true;
 
-		System.out.println("searchRight 종료");
 		return result;
 
 	}
 
 	boolean searchLeft() { // (세로방향의 뿌요) 왼쪽으로 돌경우 => 즉 you가 me의 아래 있을때
-		System.out.println("searchLeft 진입");
 
 		// 왼쪽에 벽 또는 다른 뿌요가 있다면...
 		// me 를 기준으로 you 가 회전함 you의 좌표만이 고려대상
@@ -270,7 +262,6 @@ public class ActionKey implements KeyListener {
 		if (youX == 0)
 			result = true;
 
-		System.out.println("searchLeft 종료");
 		return result;
 
 	}

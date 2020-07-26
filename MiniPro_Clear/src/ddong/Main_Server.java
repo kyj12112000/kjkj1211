@@ -28,9 +28,6 @@ public class Main_Server {
    ArrayList<ObjectOutputStream> datalist;
    
    
-   boolean chk = false;
-   boolean chkk = false;
-   String robiid;
    String removeid ="";
    String userid ="";   
    HashMap<String, ObjectOutputStream> userdata;
@@ -72,15 +69,11 @@ public class Main_Server {
          userList = new ArrayList<String>();      
          Collections.synchronizedList(userList); 
 
-         datalist = new ArrayList<ObjectOutputStream>();
-         Collections.synchronizedCollection(datalist);
-         
          LobbyDAO dao = new LobbyDAO();
-         
          while(true) {
             Socket client = server.accept();   
             new Tcp_Server(client).start();   
-            System.out.println("유저접속");
+         
          }
          
       } catch (Exception e) {
@@ -103,7 +96,6 @@ public class Main_Server {
             ois = new ObjectInputStream(soc.getInputStream());
          
             
-            System.out.println(userid);
          } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -119,34 +111,45 @@ public class Main_Server {
             DDongData data = (DDongData)ois.readObject();
             userid = (String)data.src;
          
-            System.out.println(userid);
+            System.out.println(userid+":"+"접속합니다");
             userdata.put(userid,oos);
+            
+            
+           
+     
+          
+            
+            
             
             
             
             while(ois!=null)
-               {    
+            {    
+               
                DDongData  dataois = (DDongData)ois.readObject();
-               System.out.println(dataois.src+"  :이름");
-               System.out.println(dataois.type+"  :타입");
-               System.out.println(dataois.data+"  :데이터");
-               System.out.println(dataois.dst+"  :dst");
-          
-           if(dataois.type.equals("채팅") && dataois.dst ==null ) {
-             //  System.out.println("채팅 들어와요");
-               sendtoChat(dataois); 
-           
-            }else if(dataois.type.equals("로비") || dataois.type.equals("게임") ) {
-               System.out.println(dataois.src+" - 로비 입장");
-               System.out.println(dataois.type+" - 타입이 뭐니");
-               sendAll(dataois);
-            }else if(dataois.type.equals("게임중") && dataois.dst !=null ) {
-               //System.out.println("게임중 들어와요"+dataois.data);
-               sendSelect(dataois);
-            }
-         }       
-               }catch (Exception e) {
+               
+              if(dataois.type.equals("채팅") && dataois.dst ==null ){
+                 
+                 sendtoChat(dataois); 
+              
+               }else if(dataois.type.equals("로비") || dataois.type.equals("게임")) {
+                  
+                  sendAll(dataois);
+              
+               }else if(dataois.type.equals("게임중") && dataois.dst !=null ) {
+               
+                  sendSelect(dataois);
+               
+               }
+            
+            }       
+              
+            
+            
+            
+            }catch (Exception e) {
                e.printStackTrace();
+                System.out.println("유저가 서버를 닫았습니다");
             }finally{
                
                   System.out.println("유저나가요");
@@ -176,14 +179,11 @@ public class Main_Server {
        
      public void sendSelect(DDongData dataois)   
         {
-          System.out.println("src:"+dataois.src+", dst:"+dataois.dst);
-          System.out.println("data:"+dataois.data);
-
-         try {
+        try {
                userdata.get(dataois.dst).writeObject(dataois);// 여기 에러
                userdata.get(dataois.dst).flush();
                userdata.get(dataois.dst).reset();
-               System.out.println("유저한테 데이터가 잘보내져요");
+               //System.out.println("유저한테 데이터가 잘보내져요");
                
             }catch (IOException e) {}   
          
@@ -225,8 +225,28 @@ public class Main_Server {
             e.printStackTrace();
          }
       }
-      
-
+     
+     
+     
+     public void goLogin(Object data) {
+        
+      for (ObjectOutputStream ost : userdata.values())
+         {
+            try {
+              ost.writeObject(data);
+              ost.flush();
+              ost.reset();
+           } catch (Exception e) {
+              e.printStackTrace();
+           }
+         }
+     }
+     
+     
+     
+     
+     
+     
    }
    public static void main(String[] args) {
 

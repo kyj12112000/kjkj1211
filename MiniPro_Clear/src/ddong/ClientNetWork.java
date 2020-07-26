@@ -22,21 +22,19 @@ public class ClientNetWork {
 
          this.id = id;
 
-         System.out.println(InitData.ip);
-         System.out.println(InetAddress.getLocalHost().getHostAddress());
-
          Socket soc = new Socket(InitData.ip, 7777);
          oos = new ObjectOutputStream(soc.getOutputStream());
          DDongData ddos = new DDongData();
          ddos.src = id;
-         ddos.data = "안뇽";
          ddos.type = "login";
+         
+         String msg = ddos.src+"서버 접속합니다";
+         ddos.data = msg;
          ddos.chk = false;
          oos.writeObject(ddos);
          oos.flush();
          oos.reset();
-         System.out.println("로그인하고 cn");
-         System.out.println(ddos + "로그인하고 ddos");
+         
          resiver = new Resiver(soc);
          resiver.start();
 
@@ -56,7 +54,7 @@ public class ClientNetWork {
          oos.flush();
          oos.reset();
 
-         System.out.println("전송잘돼요");
+        // System.out.println("전송잘돼요");
 
       } catch (Exception e) {
       }
@@ -80,7 +78,7 @@ public class ClientNetWork {
          while (ois != null) {
             try {
                DDongData data = (DDongData) ois.readObject(); // 여기서 에러나서 리시브가 안된다
-               
+             
                ddInter.reciver(data);
 
             } catch (Exception e) {

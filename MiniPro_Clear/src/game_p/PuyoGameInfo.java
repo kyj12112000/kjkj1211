@@ -25,19 +25,6 @@ public class PuyoGameInfo extends JPanel {
 		combo.setForeground(Color.white);
 		second.setForeground(Color.white);
 
-		// 폰트 중앙 정렬
-//		score.setHorizontalAlignment(score.CENTER);
-//		combo.setHorizontalAlignment(combo.CENTER);
-//		time.setHorizontalAlignment(time.CENTER);
-
-		// 바운더리 확인
-//		score.setBackground(Color.blue);
-//		score.setOpaque(true);
-//		combo.setBackground(Color.red);
-//		combo.setOpaque(true);
-//		time.setBackground(Color.green);
-//		time.setOpaque(true);
-
 		score.setBounds(0, 0, 100, Puyo.PUYOSIZE);
 		combo.setBounds(100, 0, 200, Puyo.PUYOSIZE);
 		second.setBounds(200, 0, 300, Puyo.PUYOSIZE);

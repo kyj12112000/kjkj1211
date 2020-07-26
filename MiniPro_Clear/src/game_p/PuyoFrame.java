@@ -96,12 +96,14 @@ public class PuyoFrame extends JFrame implements DDongInter {
 		// TODO Auto-generated method stub;
 
 		if (dd.type.equals("게임중")) {
-			if (((MeGameInfo) dd.data).itemChk) {
-				System.out.println("아이템 receive : " + ((MeGameInfo) dd.data).itemChk);
-				addItem();
-			} else {
+			if ((MeGameInfo) dd.data != null) {
 				you.paint((MeGameInfo) dd.data);
+
+				if (((MeGameInfo) dd.data).itemChk)
+					me.itemChk = true;
+
 			}
+
 		}
 
 	}
@@ -118,14 +120,11 @@ public class PuyoFrame extends JFrame implements DDongInter {
 				while (true) {
 
 					try {
+
 						Thread.sleep(frame);
 
-						if (me.meInfo.itemChk) {
-							cn.send(data);
-							me.meInfo.itemChk = false;
-						}
-
 						cn.send(data);
+						me.meInfo.itemChk = false;
 
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -139,103 +138,6 @@ public class PuyoFrame extends JFrame implements DDongInter {
 		this.threadPool.submit(thread);
 	}
 
-//	void item() { // 상대방이 아이템을 터트려 true 가 되었을때 내 정보를 업데이트 한다
-//
-//		// all stop 부분을 찾아 아이템을 추가
-//
-//		// me.puyoLbs => 라벨만 담겨 있는 뿌요 => 여기만 업데이트 해주면 meinfo 에 들어가나 확인
-//
-//		addItem();
-//
-//	}
-
-	void addItem() {
-
-		ArrayList<MyLabel> puyoLbs = positionUpdate(me.puyoLbs);
-
-		int x = 0;
-		int y = Puyo.PUYOSIZE * 12;
-		for (int i = 0; i < 6; i++) {
-
-			MyLabel lb = new MyLabel(new ImageIcon("./img/nuisance-48.png"));
-			lb.setBounds(x, y, Puyo.PUYOSIZE, Puyo.PUYOSIZE);
-			puyoLbs.add(lb);
-			x += Puyo.PUYOSIZE;
-
-		}
-
-		reInit(puyoLbs);
-
-	}
-
-	ArrayList<MyLabel> positionUpdate(ArrayList<MyLabel> puyoLbs) { // 한칸씩 위로 올려줍니다.
-
-		ArrayList<MyLabel> result = new ArrayList<MyLabel>(puyoLbs);
-
-		for (MyLabel myLabel : result) {
-
-			int x = myLabel.getX();
-			int y = myLabel.getY() + Puyo.PUYOSIZE;
-
-			myLabel.setLocation(x, y);
-
-		}
-
-		return result;
-
-	}
-
-	void reInit(ArrayList<MyLabel> puyoLbs) {
-
-		boolean meStopChk = me.me.stopChk;
-		boolean youStopChk = me.you.stopChk;
-
-		me.me.stopChk = true;
-		me.you.stopChk = true;
-
-		removeComponent(me.puyoLbs);
-
-		// 아이템이 추가된 배열로 바꿔치기
-		me.puyoLbs = puyoLbs;
-
-		paint(puyoLbs);
-
-		System.out.println("바꿔치기 작업중 [원본] : " + me.puyoLbs);
-		System.out.println("바꿔치기 작업중 [바뀐 어레이] : " + puyoLbs);
-
-		// 업데이트 후 원상 복구
-		me.me.stopChk = meStopChk;
-		me.you.stopChk = youStopChk;
-
-	}
-
-	void removeComponent(ArrayList<MyLabel> lbs) {
-
-		for (JLabel puyoLb : lbs) {
-			me.remove(puyoLb);
-		}
-
-		setVisible(false);
-		setVisible(true);
-
-	}
-
-	void paint(ArrayList<MyLabel> lbs) {
-
-		// 그려주기 작업 -- allStop 되었을 시점에 그려 주어야함....
-
-		for (MyLabel myLabel : lbs) {
-			me.add(myLabel);
-		}
-
-		// 정보도 업데이트
-		me.updateInfo();
-
-		setVisible(false);
-		setVisible(true);
-
-	}
-
 	class ExitBtn implements ActionListener {
 
 		@Override
@@ -246,10 +148,6 @@ public class PuyoFrame extends JFrame implements DDongInter {
 
 		}
 
-	}
-
-	public static void main(String[] args) {
-		new PuyoFrame("asd", "asdasdasd");
 	}
 
 }

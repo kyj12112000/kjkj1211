@@ -49,25 +49,4 @@ public class PuyoTimer extends Thread { // 타이머 쓰레드 // 점수도 같이 관리
 
 	}
 
-//	void updateInfo() { // 시간마다 패널의 정보로
-//		// 정보다루는 클래스의 정보를 업데이트 한다.
-//
-//		// System.out.println("updateInfo 진입" + second); // 진입 확인 완
-//
-////			System.out.println("사이즈가 다른가요 ? : " + panel.puyoLbs.size());
-////			System.out.println("사이즈가 다른가요 ? : " + panel.meInfo.puyos.size());
-//
-//		for (int i = 0; i < panel.puyoLbs.size(); i++) {
-//			panel.meInfo.puyos.get(i).x = panel.puyoLbs.get(i).getX();
-//			panel.meInfo.puyos.get(i).y = panel.puyoLbs.get(i).getY();
-//
-//		}
-//
-//		panel.meInfo.score = panel.score;
-//		panel.meInfo.combo = panel.comboCnt;
-//		panel.meInfo.second = this.second;
-//		panel.meInfo.total = panel.score + panel.combo;
-//
-//	}
-
 }

@@ -106,14 +106,13 @@ public class RankDAO {
 		
 		// java에서 찾으려는 아이디값을 검색해주는 쿼리문
 	      sql = "select * from userrank where id = '" + id + "'";
-	      System.out.println(sql);
 		// ▲ RankMain_GUI에서 확인하기 위해 받아온 아이디 값을 DB에서 찾아온다
-		
 		try {
 			
 			rs = stmt.executeQuery(sql); // 쿼리에서 찾아본다
 			
 			if(rs.next()) { // 쿼리에서 찾은 데이터를  DTO에서 get해온다
+				
 				dto.id = rs.getString("id");
 				dto.score = rs.getInt("score");
 				dto.rank = rs.getInt("rank");

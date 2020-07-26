@@ -40,8 +40,6 @@ public class WaitRoom extends JFrame implements DDongInter {
 
 	DDongData data;
 
-	// HashSet<String> dst;
-
 	ExecutorService threadPool;
 
 	public WaitRoom(String id, Integer roomNum) {
@@ -249,10 +247,10 @@ public class WaitRoom extends JFrame implements DDongInter {
 
 				if (id.equals(userArr[i])) {
 					new GameRoomDAO().modifyUser5(new String[] { "user1", "user2" }[i], userArr[i]);
+					break;
 				}
 
 			}
-
 			// 방 디비 업데이트 끝
 
 			// 방 화면 종료

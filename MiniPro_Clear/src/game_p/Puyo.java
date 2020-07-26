@@ -32,4 +32,11 @@ public class Puyo implements Serializable {
 		this.color = colors[i];
 	}
 
+	public Puyo(String item) {
+		// TODO Auto-generated constructor stub
+
+		this.color = item;
+		this.stopChk = false;
+
+	}
 }
